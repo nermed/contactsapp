@@ -1,4 +1,5 @@
 import {
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,13 +9,13 @@ import {
 import React from 'react';
 import {COLORS, SIZES} from '../constants';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Avatar} from 'react-native-paper';
+import {Avatar, Card, Divider, List} from 'react-native-paper';
 import {useIsLightMode} from '../helpers/main';
 
 const ContactDetail = ({navigation, route}) => {
   const contact = route.params.contact;
   const isLightMode = useIsLightMode();
-  // console.log(contact);
+  console.log(contact);
   return (
     <ScrollView
       style={{
@@ -117,6 +118,89 @@ const ContactDetail = ({navigation, route}) => {
           </View>
         </View>
       </View>
+      <View style={styles.smsHistory}>
+        <Card elevation={3} mode="elevated" style={{borderRadius: 10}}>
+          <Card.Title
+            title="SMS History"
+            titleStyle={{
+              fontWeight: '800',
+              fontSize: 18,
+              color: isLightMode ? COLORS.light.primary : COLORS.dark.primary,
+            }}
+            titleVariant="headlineLarge"
+            right={() => (
+              <TouchableOpacity>
+                <View style={{paddingRight: 20}}>
+                  <Text style={{fontSize: 16, fontWeight: '700'}}>More</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+          <Card.Content>
+            {[1, 2, 3, 4].map((_, indx, arr) => (
+              <>
+                <List.Item
+                  key={indx}
+                  title={contact.name}
+                  titleStyle={{
+                    fontSize: 16,
+                    fontWeight: '700',
+                    color: isLightMode ? 'black' : COLORS.dark.primary,
+                  }}
+                  description="Hey! what's up bro?"
+                  descriptionNumberOfLines={2}
+                  right={() => <Text>12:00</Text>}
+                />
+                {arr.length - 1 == indx ? null : <Divider />}
+              </>
+            ))}
+          </Card.Content>
+        </Card>
+      </View>
+      <View style={styles.callHistory}>
+        <Card elevation={3} mode="elevated" style={{borderRadius: 10}}>
+          <Card.Title
+            title="Calls History"
+            titleStyle={{
+              fontWeight: '800',
+              fontSize: 18,
+              color: isLightMode ? COLORS.light.primary : COLORS.dark.primary,
+            }}
+            titleVariant="headlineLarge"
+            right={() => (
+              <TouchableOpacity>
+                <View style={{paddingRight: 20}}>
+                  <Text style={{fontSize: 16, fontWeight: '700'}}>More</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          />
+          <Card.Content>
+            {[1, 2, 3, 4].map((_, indx, arr) => (
+              <>
+                <List.Item
+                  key={indx}
+                  title="Missed Call"
+                  titleStyle={{
+                    fontSize: 16,
+                    fontWeight: '700',
+                    color: isLightMode ? 'black' : COLORS.dark.primary,
+                  }}
+                  right={() => <Text>12:00</Text>}
+                  left={() => (
+                    <MaterialCommunityIcons
+                      name="phone"
+                      size={20}
+                      color={isLightMode ? 'red' : 'white'}
+                    />
+                  )}
+                />
+                {arr.length - 1 == indx ? null : <Divider />}
+              </>
+            ))}
+          </Card.Content>
+        </Card>
+      </View>
     </ScrollView>
   );
 };
@@ -129,7 +213,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   banner: {
-    height: 250,
+    height: 200,
     width: '100%',
     paddingTop: 30,
     borderBottomEndRadius: 30,
@@ -184,6 +268,9 @@ const styles = StyleSheet.create({
   },
   optionDetailIcon: {
     backgroundColor: 'transparent',
+  },
+  callHistory: {
+    marginVertical: 10,
   },
 });
 

@@ -15,7 +15,7 @@ import {useIsLightMode} from '../helpers/main';
 const ContactDetail = ({navigation, route}) => {
   const contact = route.params.contact;
   const isLightMode = useIsLightMode();
-  console.log(contact);
+  // console.log(contact);
   return (
     <ScrollView
       style={{
@@ -138,9 +138,8 @@ const ContactDetail = ({navigation, route}) => {
           />
           <Card.Content>
             {[1, 2, 3, 4].map((_, indx, arr) => (
-              <>
+              <View key={indx}>
                 <List.Item
-                  key={indx}
                   title={contact.name}
                   titleStyle={{
                     fontSize: 16,
@@ -152,7 +151,7 @@ const ContactDetail = ({navigation, route}) => {
                   right={() => <Text>12:00</Text>}
                 />
                 {arr.length - 1 == indx ? null : <Divider />}
-              </>
+              </View>
             ))}
           </Card.Content>
         </Card>
@@ -177,9 +176,8 @@ const ContactDetail = ({navigation, route}) => {
           />
           <Card.Content>
             {[1, 2, 3, 4].map((_, indx, arr) => (
-              <>
+              <View key={indx}>
                 <List.Item
-                  key={indx}
                   title="Missed Call"
                   titleStyle={{
                     fontSize: 16,
@@ -196,7 +194,7 @@ const ContactDetail = ({navigation, route}) => {
                   )}
                 />
                 {arr.length - 1 == indx ? null : <Divider />}
-              </>
+              </View>
             ))}
           </Card.Content>
         </Card>

@@ -27,14 +27,14 @@ const ContactList = () => {
         const {data, hasNextPage} = await Contacts.getContactsAsync({
           fields: [Contacts.PHONE_NUMBERS],
         });
-        // if (data.length > 0) {
-        //   setIsLoading({...isLoading, nextPage: false});
-        //   data.slice(0, 10).forEach(e => {
-        //     console.log(e);
-        //   });
-        //   setContacts({dataRaw: data, dataPrint: data});
-        // }
-        setContacts({dataRaw: dataFund, dataPrint: dataFund});
+        if (data.length > 0) {
+          setIsLoading({...isLoading, nextPage: false});
+          data.slice(0, 10).forEach(e => {
+            console.log(e);
+          });
+          setContacts({dataRaw: data, dataPrint: data});
+        }
+        // setContacts({dataRaw: dataFund, dataPrint: dataFund});
         setInterval(() => {
           setIsLoading({...isLoading, nextPage: false});
           clearInterval();
@@ -71,7 +71,7 @@ const ContactList = () => {
             ...styles.searchBar,
             backgroundColor: isLightMode
               ? 'transparent'
-              : COLORS.dark.backgroundColor1,
+              : "#838E85",
           }}
         />
       </View>
@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     display: 'flex',
     flexDirection: 'row',
+    marginBottom: 5
   },
   searchBar: {
     width: '100%',
